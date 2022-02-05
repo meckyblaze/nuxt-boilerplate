@@ -6,6 +6,7 @@
       :clipped="clipped"
       fixed
       app
+      class="d-block d-md-none"
     >
       <v-list>
         <v-list-item
@@ -24,38 +25,36 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
+    <v-app-bar :clipped-left="clipped" color="white" fixed flat app>
+      <v-app-bar-nav-icon
+        class="d-block d-md-none"
+        @click.stop="drawer = !drawer"
+      />
+      <nuxt-link to="/" class="ml-15 logo-position">
+        <nuxt-logo></nuxt-logo>
+      </nuxt-link>
+      <div
+        class="d-md-flex d-none mx-auto"
+      >
+        <nuxt-link
+          v-for="(link, index) in items"
+          :key="index"
+          :to="link.to"
+          class="px-4 text-decoration-none"
+          style="color: #333333"
+        >{{ (link.title !== 'Create Account') ? link.title : null }}</nuxt-link>
+        <v-btn
+          text
+          class="error mt-n2"
+          to="/register"
+        >Create Account</v-btn>
+      </div>
     </v-app-bar>
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light> mdi-repeat </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
@@ -63,8 +62,12 @@
 </template>
 
 <script>
+  import NuxtLogo from '../components/NuxtLogo';
 export default {
   name: 'DefaultsLayout',
+  components: {
+    NuxtLogo
+  },
   data() {
     return {
       clipped: false,
@@ -85,13 +88,28 @@ export default {
           icon: 'mdi-face-agent',
           title: 'Contact',
           to: '/contact',
+        },
+        {
+          icon: 'mdi-login',
+          title: 'Login',
+          to: '/login',
+        },
+        {
+          icon: 'mdi-account-plus-outline',
+          title: 'Create Account',
+          to: '/register'
         }
       ],
-      miniVariant: false,
       right: true,
-      rightDrawer: false,
       title: 'Vuetify.js',
+      miniVariant: false,
     }
   },
 }
 </script>
+
+<style>
+  .logo-position {
+    position: absolute;
+  }
+</style>

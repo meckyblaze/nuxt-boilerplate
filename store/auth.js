@@ -1,5 +1,5 @@
 const state = () => ({
-  user: 'Emmanuel'
+  user: ''
 });
 
 const getters = {
@@ -8,9 +8,17 @@ const getters = {
   }
 };
 
-const mutations = {};
+const mutations = {
+  USER(state, data) {
+    state.user = data;
+  }
+};
 
-const actions = {};
+const actions = {
+  change({commit}, data) {
+    commit('USER', data);
+  }
+};
 
 export default {
   state,
