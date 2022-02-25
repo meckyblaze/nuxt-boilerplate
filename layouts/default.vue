@@ -25,7 +25,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" color="white" fixed flat app>
+    <v-app-bar :clipped-left="clipped" color="white" app>
       <v-app-bar-nav-icon
         class="d-block d-md-none"
         @click.stop="drawer = !drawer"
@@ -108,8 +108,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
   .logo-position {
     position: absolute;
+  }
+  .v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.1),0 4px 5px 0 rgba(0,0,0,.04),0 1px 10px 0 rgba(0,0,0,.02) !important;
   }
 </style>
